@@ -1,0 +1,4 @@
+
+input[type=text]:focus {
+    border: .5px solid #555;
+}
