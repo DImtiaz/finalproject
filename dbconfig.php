@@ -4,7 +4,7 @@
 		private $dbuser = "root";
 		private $dbpassword = "";
 
-		private $dbname = "pms";
+		private $dbname = "patient";
 		private $connect;
 
 		public function __construct(){
@@ -29,13 +29,13 @@
 
 
 		public function createdb(){
-			$createdbquery = "CREATE DATABSE IF NOT EXISTS pms";
-			$createdb = $this->connect->query($createdb);
+			$createdbquery = "CREATE DATABASE IF NOT EXISTS patient";
+			$createdb = $this->connect->query($createdbquery);
 			if(!$createdb){
 				echo "Error creating database";
 			}
 			else{
-				echo "Database connection OK";
+				echo "Database connection OK<br>";
 			}
 		}
 
@@ -46,7 +46,7 @@
 		public function createPatientInfoTable(){
 			$createtablequery1 = "CREATE TABLE IF NOT EXISTS ginfo(
 			patID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-			name varchar(50) NOT NULL;
+			name varchar(50) NOT NULL,
 			age INT(3),
 			gender VARCHAR(6),
 			address VARCHAR(100),
@@ -56,18 +56,18 @@
 			)";
 			$createtable1 = $this->connect->query($createtablequery1);
 			if(!$createtable1){
-				echo "Error creating Patient info Table".mysqli_error($this->conect);
+				echo "Error creating Patient info Table".mysqli_error($this->connect);
 			}
 			else{
-				echo "Patient Info table OK";
+				echo "Patient Info table OK<br>";
 			}
 		}
 
 		public function createPrescriptionTable(){
 			$createtablequery2 = "CREATE TABLE IF NOT EXISTS prescription(
-			pid INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+			presid INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 			patID INT(10),
-			FOREIGN KEY (patID) REFERS ginfo(patID),
+			
 			pname VARCHAR(50),
 			doctorname varchar(50),
 			diagnosis varchar(1000),
@@ -79,7 +79,7 @@
 				echo "Error Creating Prescription Table".mysqli_error($this->connect);
 			}
 			else{
-				echo "Prescription Table OK";
+				echo "Prescription Table OK<br>";
 			}
 
 		}
@@ -88,15 +88,56 @@
 			$createtablequery3 = "CREATE Table IF NOT EXISTS mhistory(
 			mhid INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 			patID INT(10),
-			FOREIGN KEY (patID) REFERS ginfo(patID),
+			
 			pname VARCHAR(50),
 			testreport varchar(4000),
 			premedicine varchar(1000),
 			opinfo VARCHAR(1000),
-			predoc varchar(50),
-			image LONGBLOB
+			predoc varchar(50)
 			)";
+			$createtable3 = $this->connect->query($createtablequery3);
+			if(!$createtable3){
+				echo "Error Creating Medical History table".mysqli_error($this->connect);
+			}
+			else{
+				echo "Medical History table OK<br>";
+			}
 
+		}
+
+		public function createBillsTable(){
+			$createtablequery4 = "CREATE TABLE IF NOT EXISTS bill(
+			billId INT(10) AUTO_INCREMENT PRIMARY KEY,
+			patID INT(10) NOT NULL,
+			pname varchar(50),
+			presId INT(10),
+			amount INT(20),
+			comment VARCHAR(1000)
+			)";
+			$createtable4 = $this->connect->query($createtablequery4);
+			if(!$createtable4){
+				echo "Error Creating Billing Table".mysqli_error($this->connect);
+			}
+			else{
+				echo "Bills Table OK<br>";
+			}
+		}
+
+		public function createDischargeTable(){
+			$createtablequery5 = "CREATE TABLE IF NOT EXISTS discharge(
+			disID INT(10) AUTO_INCREMENT PRIMARY KEY,
+			patID INT(10),
+			ward varchar(10),
+			admitDate VARCHAR(10),
+			dischargeDate VARCHAR(10)
+			)";
+			$createtable5 = $this->connect->query($createtablequery5);
+			if(!$createtablequery5){
+				echo "Error Creating Discharge Table".mysqli_error($this->connect);
+			}
+			else{
+				echo "Discharge Table OK<br>";
+			}
 		}
 		
 
