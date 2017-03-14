@@ -7,8 +7,8 @@
 <body>
 <?php
 // define variables and set to empty values
-$nameErr =  $ageErr =  $addrErr = $genderErr =  $contactErr ="";
-$name = $age = $address = $gender = $contact = "";
+$nameErr =  $ageErr =  $addrErr = $genderErr =  $contactErr = $niderror = "";
+$name = $age = $address = $gender = $contact = $nid = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["name"])) {
@@ -49,6 +49,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $contact = test_input($_POST["contact"]);
   }
+
+  if(empty($_POST["nid"])){
+  	$niderror = "";
+  }
+  else{
+  	$nid = test_input($_POST["nid"]);
+  }
 }
 
 function test_input($data) {
@@ -66,7 +73,7 @@ function test_input($data) {
   <span class="error">* <?php echo $nameErr;?></span>
   <br><br>
   Age:
-  <input type="text" name="age" value="<?php echo $age;?>">
+  <input type="number" name="age" value="<?php echo $age;?>">
   <span class="error">* <?php echo $ageErr;?></span>
   <br><br>
   
@@ -77,6 +84,8 @@ function test_input($data) {
   
   Contact: <input type="text" name="contact" value="<?php echo $contact;?>">
   <span class="error"><?php echo $contactErr;?></span>
+  <br><br>
+  National ID No (if necessary):<input type="number" name="nid">
   <br><br>
   Gender:
   <input type="radio" name="gender" <?php if (isset($gender) && $gender=="female") echo "checked";?> value="female">Female
@@ -97,6 +106,8 @@ echo "<br>";
 echo $gender;
 echo "<br>";
 echo $contact;
+echo "<br>";
+echo $nid;
 ?>
 
 </body>
