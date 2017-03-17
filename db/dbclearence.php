@@ -1,14 +1,14 @@
 <?php
 	require_once 'dbconfig.php';
-	$a = new databaseconnection;
-	$a->createdb();
-	$a->selectdb();
-	$a->createPatientInfoTable();
-	$a->createPrescriptionTable();
-	$a->createMedicalHistoryTable();
-	$a->createBillsTable();
-	$a->createDischargeTable();
-	$a->createAdminTable();
+	$db = new databaseconnection;
+	$db->createdb();
+	$db->selectdb();
+	$db->createPatientInfoTable();
+	$db->createPrescriptionTable();
+	$db->createMedicalHistoryTable();
+	$db->createBillsTable();
+	$db->createDischargeTable();
+	$db->createAdminTable();
 
 
 

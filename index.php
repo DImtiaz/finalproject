@@ -1,114 +1,86 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Patient Information System</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <title>Admin Panel</title>
+    
+    
+    
+    
+        <link rel="stylesheet" href="css/style.css">
+        <style type="text/css">
+        body,td,th {
+	font-family: "Source Sans Pro", sans-serif;
+}
+body {
+	background: url(img/2.jpg) no-repeat center center fixed;
+	background-size: cover;
+}
+        </style>
+  </head>
+  
+
 <body>
-<?php
-// define variables and set to empty values
-$nameErr =  $ageErr =  $addrErr = $genderErr =  $contactErr = $niderror = "";
-$name = $age = $address = $gender = $contact = $nid = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["name"])) {
-    $nameErr = "Name is required";
-  } else {
-    $name = test_input($_POST["name"]);
-    // check if name only contains letters and whitespace
-    if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-      $nameErr = "Only letters and white space allowed"; 
-    }
-  }
-  
-  if (empty($_POST["age"])) {
-    $ageErr = "Age is required";
-  } else {
-    $age = test_input($_POST["age"]);
-    // check if age is well-formed
-    if (preg_match("/^[a-zA-Z ]*$/",$age)) {
-      $ageErr = "Input Age in Year(s)"; 
-    }
-  }
     
-  if (empty($_POST["address"])) {
-    $addrErr = "Address is required";
-  } else {
-    $address = test_input($_POST["address"]);
-    // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
-    
-  }
-  if (empty($_POST["gender"])) {
-    $genderErr = "Please Select Gender";
-  } else {
-  $gender = test_input($_POST["gender"]);
+<div class="wrapper">
+	<div class="container">
+		<h1>Welcome to<br>Admin Panel</h1>
+		
+		<form class="form" action="#" method="post">
+			<input type="text" name="username" placeholder="Username">
+			<input type="password" name="password" placeholder="Password">
+			<button type="submit" id="login-button" name="submit" value="submit">Login</button>
+		</form>
+        
+	</div>
+	
+	<ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+    <?php
+	require_once 'db/dbclearence.php';
+	if (isset($_POST['submit'])) {
+			$UserName=$_POST['username'];
+			$Password=$_POST['password'];
+			$result="select * from login where username='$UserName' and password='$Password'";
+
+			$success = $db->select($result);
+			
+			$count=mysqli_num_rows($success);
+			$row=$success->fetch_assoc();
+		
+			if ($count > 0){
+			session_start();
+			$_SESSION['id']=$row['id'];
+			header('location:admin/starter.php?id='.$row['id'].'');
+			
+			}
+			else
+			{
+				echo "enter Correct Username And Password";
+			}
 }
 
-  if (empty($_POST["contact"])) {
-    $contactErr = "Please input a valid contact No.";
-  } else {
-    $contact = test_input($_POST["contact"]);
-  }
-
-  if(empty($_POST["nid"])){
-  	$niderror = "";
-  }
-  else{
-  	$nid = test_input($_POST["nid"]);
-  }
-}
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
 ?>
 
-<h2>Enter Patient Details</h2>
-<p><span class="error">* required field.</span></p>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-  Name: <input type="text" name="name" value="<?php echo $name;?>">
-  <span class="error">* <?php echo $nameErr;?></span>
-  <br><br>
-  Age:
-  <input type="number" name="age" value="<?php echo $age;?>">
-  <span class="error">* <?php echo $ageErr;?></span>
-  <br><br>
-  
-  Address: <input type="text" name="address" value="<?php echo $address;?>">
-  <span class="error"><?php echo $addrErr;?></span>
-  <br><br>
-  
-  
-  Contact: <input type="text" name="contact" value="<?php echo $contact;?>">
-  <span class="error"><?php echo $contactErr;?></span>
-  <br><br>
-  National ID No (if necessary):<input type="number" name="nid">
-  <br><br>
-  Gender:
-  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="female") echo "checked";?> value="female">Female
-  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="male") echo "checked";?> value="male">Male
-  <span class="error">* <?php echo $genderErr;?></span>
-  <br><br>
-  <input type="submit" name="submit" value="Submit">  
-</form>
+<script src="js/index.js"></script>
 
-<?php
-echo "<h2>Your Input:</h2>";
-echo $name;
-echo "<br>";
-echo $age;
-echo "<br>";
-echo $address;
-echo "<br>";
-echo $gender;
-echo "<br>";
-echo $contact;
-echo "<br>";
-echo $nid;
-?>
-
-</body>
+ <div class="footer" align="center">
+ <strong>
+ &copy;DEWAN IMTIAZ BEEN EMRAN</strong>
+ </div>
+    
+    
+  </body>
 </html>
