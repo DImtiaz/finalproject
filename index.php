@@ -53,7 +53,7 @@ body {
 	if (isset($_POST['submit'])) {
 			$UserName=$_POST['username'];
 			$Password=$_POST['password'];
-			$result="select * from login where username='$UserName' and password='$Password'";
+			$result="select * from userpass where username='$UserName' and password='$Password'";
 
 			$success = $db->select($result);
 			
@@ -62,14 +62,31 @@ body {
 		
 			if ($count > 0){
 			session_start();
-			$_SESSION['id']=$row['id'];
-			header('location:admin/starter.php?id='.$row['id'].'');
+			$userid = $row['empid'];
+			$userlevel = $row['level'];
+			$_SESSION['userinfo']= array('userid' => $userid, 'userlevel' => $userlevel);
+			
+
+			switch ($userlevel) {
+				case '1':
+					header('location:doc/index.php?id='.$row['empid'].'');
+					break;
+				case '2':
+					header('location:stuff/index.php?id='.$row['empid'].'');
+					break;
+					case '3':
+						header('location:pat/index.php?id='.$row['empid'].'');
+						break;
+				default:
+					echo "enter Correct Username And Password";
+					break;
+			}
+
+
+			
 			
 			}
-			else
-			{
-				echo "enter Correct Username And Password";
-			}
+			
 }
 
 ?>
