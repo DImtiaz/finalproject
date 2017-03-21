@@ -1,30 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Doctor Home</title>
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
-</head>
-<body>
-<?php
-    require_once '../db/dbclearence.php';
-    session_start();
-    if (!isset($_SESSION['userinfo']['userid'])){
-    header('location:../index.php');
-    }
-  ?>
-  <?php
-    $id=$_SESSION['userinfo']['userid'];
-    
-    $query="select * from userpass where empid=$id";
-    $result = $db->select($query);
-
-    $row=$result->fetch_assoc();
-
-    $Name=$row['username'];
-    var_dump($_SESSION['userinfo']['userid'])
-    
-
-  ?>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -78,8 +51,3 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-
-
-</body>
-</html>
