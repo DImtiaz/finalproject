@@ -2,8 +2,13 @@
 <html>
 <head>
 	<title>Add New Patient</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+</head>
 </head>
 <body>
+<?php require_once 'header.php'; ?>
+
+<div class="container">
 <form action="#" method="post">
 	Name :<br><input type="text" name="name" placeholder="Enter Full Name">
 		<br><br>
@@ -17,11 +22,12 @@
     Address :<br><textarea name="address" rows="10" cols="50" placeholder="Enter Address"></textarea><br>
     <input type="submit" name="submit" id="submit" value="Add">
 </form>
+</div>
 <?php
 	
 	
 	if(isset($_POST['submit'])){
-		require_once 'db/dbclearence.php';
+		require_once '../db/dbclearence.php';
 		$name = $_POST['name'];
 		$age = $_POST['age'];
 		$gender = $_POST['gender'];
@@ -29,7 +35,7 @@
 		$contact = $_POST['contact'];
 		$nid = $_POST['nid'];
 
-		$a->insertNewInfo($name, $age, $gender, $address, $contact, $nid);
+		$db->insertNewInfo($name, $age, $gender, $address, $contact, $nid);
 	}
 
 	

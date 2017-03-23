@@ -29,12 +29,19 @@
 
 <div class="container">
 	<div class="btn-group">
+  <a href="insertpatient.php">
   <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Add A Patient<span class=""></span>
-  </button><br><br><br>
+  </button><br><br></a>
+
+  <a href="viewpatient.php"><button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Search A Patient Information<span class=""></span>
+  </button><br><br></a>
+
+  <a href="inserthistory.php">
   <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Add A Patient Medical Histoy<span class=""></span>
-  </button><br><br><br>
+  </button><br><br></a>
 
   <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     View Medicine And Diagnosis<span class=""></span>
