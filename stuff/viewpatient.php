@@ -5,7 +5,14 @@
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 </head>
 <body>
-<?php require_once 'header.php'; ?>
+<?php require_once 'header.php';
+
+  session_start();
+    if (!isset($_SESSION['userinfo']['userid'])){
+    header('location:../index.php');
+    }
+
+ ?>
 <div class="">
 <form action="#" method="post">
 	<h3>Enter Patient ID</h3>

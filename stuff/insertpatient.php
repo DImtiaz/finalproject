@@ -6,7 +6,13 @@
 </head>
 </head>
 <body>
-<?php require_once 'header.php'; ?>
+<?php require_once 'header.php'; 
+	session_start();
+    if (!isset($_SESSION['userinfo']['userid'])){
+    header('location:../index.php');
+    }
+
+?>
 
 <div class="container">
 <form action="#" method="post">
