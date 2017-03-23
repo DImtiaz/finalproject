@@ -30,16 +30,31 @@
 			}
 		}
 		?>
-		<form action="#" method="post">
+		<form action="inserth.php" method="post">
 		Patient ID:
 			<input type="text" name="id" placeholder="<?php echo $patientID; ?>" 
 			value="<?php echo $patientID; ?>" readonly><br><br>
 		Patient Name:
 			<input type="text" name="name" value="<?php echo $patientName; ?>" readonly><br><br>
+		Previous Test Reports:<br>
+			<textarea name="testreport" rows="10" cols="80" placeholder="Write Test And Report(s)"></textarea><br>
+		Previous Medicine Taken:<br>
+			<textarea name="medicine" rows="10" cols="80" placeholder="Write Previous Medicine Name(s)"></textarea><br>
+
+		Previous Operation Information:<br>
+			<textarea name="operationinfo" rows="10" cols="80" placeholder="Write Operation Information"></textarea><br>
+		Previous Doctor(s) Name:<br>
+			<textarea name="doctors" rows="5" cols="50" placeholder="Write Doctor(s) Name"></textarea><br>
+
+			<input type="submit" name="submit" id="submit" value="submit">
+
 		</form>
 
-
 		<?php
+
+
+
+
 	}
 
 

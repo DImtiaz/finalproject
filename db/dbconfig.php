@@ -187,6 +187,22 @@
 			}
 		}
 
+		public function insertPatientHistory($patid, $patname, $testreport, $medicine, $operationinfo, $doctors){
+
+			$insertHisQuery = "INSERT INTO mhistory (patID,pname,testreport,premedicine,opinfo,predoc) VALUES ('$patid', '$patname', '$testreport', '$medicine', '$operationinfo', '$doctors')";
+
+			$inserthis = $this->connect->query($insertHisQuery);
+			if(!$inserthis){
+				echo "Error Inserting Data".mysqli_error($this->connect);
+			}
+			else{
+				echo "Data Successfully Inserted";
+			}
+
+		}
+
+
+
 
 		public function insert($sql){
 			$successinsert = $this->connect->query($sql);
