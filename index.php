@@ -64,7 +64,8 @@ body {
 			session_start();
 			$userid = $row['empid'];
 			$userlevel = $row['level'];
-			$_SESSION['userinfo']= array('userid' => $userid, 'userlevel' => $userlevel);
+			$username = $row['empname'];
+			$_SESSION['userinfo']= array('userid' => $userid, 'userlevel' => $userlevel, 'username' => $username);
 			
 
 			switch ($userlevel) {

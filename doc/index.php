@@ -20,8 +20,10 @@
 
     $row=$result->fetch_assoc();
 
-    $Name=$row['username'];
-    var_dump($_SESSION['userinfo']['userid'])
+    $Name=$row['empname'];
+    #var_dump($Name);
+    #var_dump($_SESSION['userinfo']['username']);
+    $username = $_SESSION['userinfo']['username'];
     
 
   ?>
@@ -35,7 +37,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" href="index.php">HOME</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -60,9 +62,10 @@
         <div class="form-group">
           <input type="text" class="form-control" name="id" placeholder="Enter Patient ID">
         </div>
-        <button type="submit" id="submit" value="submit" name="submit" class="btn btn-default">Search</button>
+        <button type="submit" id="submi" value="submit" name="submit" class="btn btn-default">Search</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
+      <li>Welcome,<?php echo $username; ?></li>
         <li><a href="logout.php">Log Out</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -124,14 +127,29 @@
                   <td>0<?php echo $value['contact']; ?></td>
                   <td><?php echo $value['nid']; ?></td>
                   <td><?php echo $value['time']; ?></td>  
-                  <td><a href="viewhistory.php?id=<?php echo $value['patID'];?>"><button type="button" class="btn btn-info">View Medical History</button></a>&nbsp;
-                  <a href="editpatient.php?id=<?php echo $value['patID'];?>"><button type="button" class="btn btn-success">Pescribe Medicine</button></a>
+                  
+                  
 
                   </td>  
 
                   </tr>
               </tbody>
+
+
+               <thead>
+            <tr>
+            	  <th>History ID</th>
+	              <th>Patient ID</th>
+	              <th>Patient Name</th>
+	              <th>Test Reports</th>
+	              <th>Previous Medicine Name</th>
+	              <th>Previous Opertaion Info</th>
+	              <th>Previous Doctor Name</th>
+              
+            </tr>
+          </thead>
               <?php 
+              $patientname = $value['name'];
 
       }
 
@@ -140,6 +158,38 @@
     else{
       echo "Patient Record not Found";
     }
+    $sql = "SELECT * FROM mhistory WHERE patID = $id";
+
+	$result = $db->select($sql);
+
+	$count = mysqli_num_rows($result);
+	if($count > 0){
+		foreach ($result as $value) {
+
+			?>
+			<tbody>
+				<tr>
+					<td><?php echo $value['mhid']; ?></td>
+					<td><?php echo $value['patID']; ?></td>
+					<td><?php echo $value['pname']; ?></td>
+					<td><?php echo $value['testreport']; ?></td>
+					<td><?php echo $value['premedicine']; ?></td>
+					<td><?php echo $value['opinfo']; ?></td>
+					<td><?php echo $value['predoc']; ?></td>
+
+				</tr>
+			</tbody>
+
+			<?php
+
+			
+		}
+	}
+	else{
+		echo "No Medical History Found!!";
+	}
+
+
 
   }
 
@@ -149,6 +199,20 @@
 
 ?>
 </table>
+
+
+
+<form action="saveprescription.php?id=<?php echo $id; ?>" method="post">
+Diagnosis<br>
+	<textarea name="diagnosis" rows="15" cols="70" placeholder="Write Diagnosis"></textarea><br>
+	Prescribed Medicine<br>
+	<textarea name="medicine" rows="15" cols="70" placeholder="Write Prescribed Medicine"></textarea>
+	<br>
+	<button type="submit" value="submit" class="btn btn-primary">Submit</button>
+	
+</form>
+
+
 
 
 </body>

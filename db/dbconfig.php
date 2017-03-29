@@ -143,6 +143,7 @@
 		public function createAdminTable(){
 			$createtablequery6 = "CREATE TABLE IF NOT EXISTS userpass(
 			empid INT(10) AUTO_INCREMENT PRIMARY KEY,
+			empname VARCHAR(50),
 			username VARCHAR(10),
 			password VARCHAR(10),
 			level INT(1) 
